@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    font-size: 17px; /* Increased base font size for maximum legibility */
+  }
+
+  body {
+    background-color: #050505;
+    color: #ffffff;
+    font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* Custom scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 9px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #050505;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #262626;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #e50914;
+  }
+}
+
+/* Ambient Background Red Orbs */
+.ambient-glow-left {
+  position: absolute;
+  top: 15%;
+  left: -15%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(229, 9, 20, 0.14) 0%, rgba(5, 5, 5, 0) 70%);
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambient-glow-right {
+  position: absolute;
+  top: 55%;
+  right: -15%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(229, 9, 20, 0.12) 0%, rgba(5, 5, 5, 0) 70%);
+  filter: blur(140px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Card hover zoom and shine effect */
+.onyx-card {
+  background: rgba(18, 18, 18, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.onyx-card:hover {
+  border-color: rgba(229, 9, 20, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px -10px rgba(229, 9, 20, 0.2);
+}
+
+/* Text glow */
+.text-glow-red {
+  text-shadow: 0 0 20px rgba(229, 9, 20, 0.6);
+}
+
+/* Button pulse & glow */
+.btn-red-glow {
+  box-shadow: 0 0 20px -3px rgba(229, 9, 20, 0.5);
+  transition: all 0.3s ease;
+}
+
+.btn-red-glow:hover {
+  box-shadow: 0 0 30px 2px rgba(229, 9, 20, 0.75);
+  transform: translateY(-1px) scale(1.02);
+}
+
+/* Preloader Keyframes */
+@keyframes preloaderFadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+@keyframes logoPulse {
+  0%, 100% { transform: scale(1); opacity: 0.95; }
+  50% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 20px #e50914); }
+}
+
+.animate-logo-pulse {
+  animation: logoPulse 1.2s ease-in-out infinite;
+}
+
+/* Accessible Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
