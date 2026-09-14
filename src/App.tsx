@@ -10,6 +10,7 @@ import { CoachingTeam } from './components/CoachingTeam';
 import { Pricing } from './components/Pricing';
 import { Transformation } from './components/Transformation';
 import { Testimonials } from './components/Testimonials';
+import { Gallery } from './components/Gallery';
 import { LocationMap } from './components/LocationMap';
 import { AppointmentForm } from './components/AppointmentForm';
 import { Footer } from './components/Footer';
@@ -80,8 +81,12 @@ export const App: React.FC = () => {
       {/* 10. Small Group Transformation */}
       <Transformation onBookClick={() => handleOpenBookModal('Small Group Transformation')} />
 
+
       {/* 11. Member Testimonials */}
       <Testimonials />
+
+      {/* 12. Pure Media Swiper (Photos & Videos) */}
+      <Gallery />
 
       {/* 12. Location & Google Maps */}
       <LocationMap />

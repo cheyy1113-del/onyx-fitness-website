@@ -1,21 +1,19 @@
 import React, { useRef, useState } from 'react';
 import { GalleryItem } from '../types';
-import { Play, X, Film, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Play, X, Film, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const Gallery: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [filter, setFilter] = useState<'all' | 'video' | 'gym' | 'pilates' | 'pt'>('all');
   const [activeVideo, setActiveVideo] = useState<{ url: string } | null>(null);
 
   const galleryItems: GalleryItem[] = [
-    // Video Reels with Crisp Poster Image Thumbnails
+    // Video Reels (Under 100MB GitHub limit)
     { id: 'v1', title: '', category: 'video', imageUrl: '/assets/onyx_photo_01.jpg', videoUrl: '/assets/videos/onyx_video_01.mp4', isVideo: true, caption: '' },
     { id: 'v2', title: '', category: 'video', imageUrl: '/assets/onyx_photo_02.jpg', videoUrl: '/assets/videos/onyx_video_02.mp4', isVideo: true, caption: '' },
     { id: 'v3', title: '', category: 'video', imageUrl: '/assets/onyx_photo_03.jpg', videoUrl: '/assets/videos/onyx_video_03.mp4', isVideo: true, caption: '' },
-    { id: 'v4', title: '', category: 'video', imageUrl: '/assets/onyx_photo_04.jpg', videoUrl: '/assets/videos/onyx_video_04.mp4', isVideo: true, caption: '' },
 
-    // Optimized Studio Photos (16 Photos)
+    // Pure Client Studio Photos (16 Photos)
     { id: 'p1', title: '', category: 'gym', imageUrl: '/assets/onyx_photo_01.jpg', caption: '' },
     { id: 'p2', title: '', category: 'gym', imageUrl: '/assets/onyx_photo_02.jpg', caption: '' },
     { id: 'p3', title: '', category: 'pilates', imageUrl: '/assets/onyx_photo_03.jpg', caption: '' },
@@ -33,8 +31,6 @@ export const Gallery: React.FC = () => {
     { id: 'p15', title: '', category: 'gym', imageUrl: '/assets/onyx_photo_15.jpg', caption: '' },
     { id: 'p16', title: '', category: 'gym', imageUrl: '/assets/onyx_photo_16.jpg', caption: '' }
   ];
-
-  const filteredItems = filter === 'all' ? galleryItems : galleryItems.filter(item => item.category === filter);
 
   const handleScroll = () => {
     if (scrollRef.current) {
@@ -59,25 +55,19 @@ export const Gallery: React.FC = () => {
   };
 
   return (
-    <section id="gallery" className="py-14 relative bg-[#0D0D0D] border-y border-[#1F1F1F]">
+    <section id="gallery" className="py-12 relative bg-[#0D0D0D] border-y border-[#1F1F1F]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8">
-          <div>
-            <div className="inline-flex items-center space-x-2 bg-[#E50914]/10 border border-[#E50914]/40 rounded-full px-4 py-1.5 mb-2">
-              <Sparkles className="w-3.5 h-3.5 text-[#E50914]" />
-              <span className="text-xs font-black uppercase tracking-[0.2em] text-[#E50914] font-display">
-                VISUAL GALLERY & REELS
-              </span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white font-display">
-              STUDIO PHOTOS & REELS
-            </h2>
+        {/* Swiper Controls Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center space-x-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#E50914] animate-pulse" />
+            <span className="text-xs font-black uppercase tracking-[0.2em] text-white font-display">
+              SWIPE MEDIA GALLERY ({galleryItems.length})
+            </span>
           </div>
 
-          {/* Controls */}
-          <div className="flex items-center space-x-3 mt-4 md:mt-0">
+          <div className="flex items-center space-x-3">
             <button
               onClick={scrollLeft}
               className="p-3 bg-[#050505] hover:bg-[#E50914] text-white rounded-full border border-[#1F1F1F] hover:border-[#E50914] transition-all duration-300 shadow-lg"
@@ -95,40 +85,14 @@ export const Gallery: React.FC = () => {
           </div>
         </div>
 
-        {/* Filter Tabs */}
-        <div className="flex justify-start sm:justify-center space-x-2 mb-8 overflow-x-auto scrollbar-none pb-2">
-          {[
-            { id: 'all', label: 'All Media', count: galleryItems.length },
-            { id: 'video', label: 'Videos 🎬', count: galleryItems.filter(i => i.isVideo).length },
-            { id: 'gym', label: 'Gym Floor', count: galleryItems.filter(i => i.category === 'gym').length },
-            { id: 'pilates', label: 'Pilates Studio', count: galleryItems.filter(i => i.category === 'pilates').length },
-            { id: 'pt', label: 'Personal Training', count: galleryItems.filter(i => i.category === 'pt').length }
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setFilter(tab.id as any)}
-              className={`px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider transition-all duration-300 flex items-center space-x-2 flex-shrink-0 ${
-                filter === tab.id
-                  ? 'bg-[#E50914] text-white shadow-red-glow scale-105'
-                  : 'bg-[#050505] text-zinc-300 border border-[#1F1F1F] hover:text-white hover:border-[#E50914]/50'
-              }`}
-            >
-              <span>{tab.label}</span>
-              <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${filter === tab.id ? 'bg-black/40 text-white' : 'bg-zinc-800 text-zinc-400'}`}>
-                {tab.count}
-              </span>
-            </button>
-          ))}
-        </div>
-
-        {/* 60FPS Hardware Accelerated Swipeable Photos & Videos Carousel */}
+        {/* 100% PURE MEDIA SWIPER CAROUSEL (NO TEXT) */}
         <div
           ref={scrollRef}
           onScroll={handleScroll}
-          className="flex overflow-x-auto space-x-6 scrollbar-none snap-x snap-mandatory pb-4 pt-2 -mx-4 px-4 sm:mx-0 sm:px-0 scroll-smooth transform-gpu"
+          className="flex overflow-x-auto space-x-6 scrollbar-none snap-x snap-mandatory pb-4 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 scroll-smooth transform-gpu"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {filteredItems.map((item) => (
+          {galleryItems.map((item) => (
             <div
               key={item.id}
               onClick={() => item.isVideo && item.videoUrl && setActiveVideo({ url: item.videoUrl })}
@@ -139,15 +103,13 @@ export const Gallery: React.FC = () => {
             >
               {item.isVideo && item.videoUrl ? (
                 <>
-                  {/* Immediate Visible High-Res Image Thumbnail */}
                   <img
                     src={item.imageUrl}
-                    alt="ONYX Video Thumbnail"
+                    alt="Media Thumbnail"
                     loading="lazy"
                     decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  {/* Hover Auto-Play Video Overlay */}
                   <video
                     src={item.videoUrl}
                     poster={item.imageUrl}
@@ -159,7 +121,6 @@ export const Gallery: React.FC = () => {
                     onMouseOver={(e) => (e.target as HTMLVideoElement).play().catch(() => {})}
                     onMouseOut={(e) => (e.target as HTMLVideoElement).pause()}
                   />
-                  {/* Play Button Indicator */}
                   <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all flex items-center justify-center pointer-events-none">
                     <div className="w-16 h-16 rounded-full bg-[#E50914] text-white flex items-center justify-center shadow-red-glow group-hover:scale-110 transition-transform">
                       <Play className="w-8 h-8 fill-current ml-1" />
@@ -169,7 +130,7 @@ export const Gallery: React.FC = () => {
               ) : (
                 <img
                   src={item.imageUrl}
-                  alt="ONYX Studio Photo"
+                  alt="Studio Media"
                   loading="lazy"
                   decoding="async"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
