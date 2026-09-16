@@ -1,8 +1,13 @@
 /// <reference types="vite/client" />
 import { LeadFormData } from '../types';
 
-// Google Apps Script Web App URL (configured via VITE_GOOGLE_SHEETS_WEBHOOK_URL or fallback URL)
-const GOOGLE_SHEET_WEBHOOK_URL = import.meta.env.VITE_GOOGLE_SHEETS_WEBHOOK_URL || '';
+// Webhook URL configuration (reads from .env VITE_GOOGLE_SHEETS_WEBHOOK_URL or localStorage override)
+const getWebhookUrl = (): string => {
+  return (
+    import.meta.env.VITE_GOOGLE_SHEETS_WEBHOOK_URL ||
+    (typeof window !== 'undefined' ? localStorage.getItem('onyx_sheets_webhook_url') || '' : '')
+  );
+};
 
 export interface LeadSubmissionPayload {
   fullName: string;
@@ -34,27 +39,38 @@ export const submitLead = async (data: LeadSubmissionPayload): Promise<{ success
     source: data.source || 'Website Form'
   };
 
-  // 1. Save to local storage queue backup
+  // 1. Save locally to localStorage backup queue
   try {
     const existing = JSON.parse(localStorage.getItem('onyx_captured_leads') || '[]');
     existing.push(payload);
     localStorage.setItem('onyx_captured_leads', JSON.stringify(existing));
   } catch (err) {
-    console.warn('Local storage backup write failed:', err);
+    console.warn('Local storage lead queue write error:', err);
   }
 
-  // 2. Submit to Google Apps Script Web App Endpoint if configured
-  const endpoint = GOOGLE_SHEET_WEBHOOK_URL;
+  const endpoint = getWebhookUrl();
 
+  // 2. Submit to Google Apps Script Web App Endpoint if endpoint URL is configured
   if (endpoint) {
     try {
-      // mode: 'no-cors' allows direct POST submission to Google Apps Script without CORS blockage
+      // Send as URLSearchParams form payload so Google Apps Script handles e.parameter natively
+      const formData = new URLSearchParams();
+      formData.append('timestamp', payload.timestamp);
+      formData.append('name', payload.name);
+      formData.append('phone', payload.phone);
+      formData.append('email', payload.email);
+      formData.append('trainingInterest', payload.trainingInterest);
+      formData.append('message', payload.message);
+      formData.append('source', payload.source);
+
+      // Submit via fetch with mode: 'no-cors' to bypass Google Apps Script CORS redirect headers
       await fetch(endpoint, {
         method: 'POST',
+        mode: 'no-cors',
         headers: {
-          'Content-Type': 'text/plain;charset=utf-8',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify(payload),
+        body: formData.toString()
       });
 
       return {
@@ -65,18 +81,17 @@ export const submitLead = async (data: LeadSubmissionPayload): Promise<{ success
       console.error('Google Sheets submission error:', error);
       return {
         success: false,
-        message: 'Unable to submit enquiry directly to our servers right now. Please try again or reach out directly on WhatsApp.'
+        message: 'Unable to submit enquiry directly right now. Please try again or message us on WhatsApp.'
       };
     }
   }
 
-  // Fallback response when webhook URL is awaiting deployment
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        success: true,
-        message: 'Thank you! Your enquiry has been received. The ONYX team will get in touch with you shortly.'
-      });
-    }, 600);
-  });
+  console.info(
+    'ONYX Lead Captured locally. To log directly to your Google Sheet (https://docs.google.com/spreadsheets/d/1-ssMCfgTwmEgIh44U-OHKsn7gNOQg-8Crl524nC1bBY/edit), add your Google Apps Script Web App URL to .env as VITE_GOOGLE_SHEETS_WEBHOOK_URL.'
+  );
+
+  return {
+    success: true,
+    message: 'Thank you! Your enquiry has been received. The ONYX team will get in touch with you shortly.'
+  };
 };
