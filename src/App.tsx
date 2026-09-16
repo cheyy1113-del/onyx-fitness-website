@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Preloader } from './components/Preloader';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { EnquiryModal } from './components/EnquiryModal';
 import { About } from './components/About';
-import { TrainingServices } from './components/TrainingServices';
 import { Founder } from './components/Founder';
 import { CoachingTeam } from './components/CoachingTeam';
 import { Pricing } from './components/Pricing';
-import { Transformation } from './components/Transformation';
 import { Testimonials } from './components/Testimonials';
 import { Gallery } from './components/Gallery';
 import { LocationMap } from './components/LocationMap';
@@ -20,27 +18,10 @@ export const App: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPlanPreset, setSelectedPlanPreset] = useState<string>('');
 
-  useEffect(() => {
-    // Trigger popup after 4 seconds unless previously dismissed
-    const timer = setTimeout(() => {
-      try {
-        const dismissed = localStorage.getItem('onyx_modal_dismissed');
-        if (!dismissed) {
-          setIsModalOpen(true);
-        }
-      } catch (e) {
-        setIsModalOpen(true);
-      }
-    }, 4000);
-
-    return () => clearTimeout(timer);
-  }, []);
-
   const handleOpenBookModal = (preset?: string) => {
     if (preset) {
       setSelectedPlanPreset(preset);
     }
-    // Scroll directly to appointment form or open modal
     const formElement = document.getElementById('book-form');
     if (formElement) {
       formElement.scrollIntoView({ behavior: 'smooth' });
@@ -60,44 +41,38 @@ export const App: React.FC = () => {
       {/* 3. Hero Section */}
       <Hero onBookClick={() => handleOpenBookModal()} />
 
-      {/* 4. Enquiry Modal */}
+      {/* 4. Enquiry Modal (Opened only via CTA clicks) */}
       <EnquiryModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
-      {/* 5. About Section */}
-      <About />
+      {/* 5. Combined Training & Pricing Section */}
+      <Pricing onSelectPlan={(plan) => handleOpenBookModal(plan)} />
 
-      {/* 6. Services & Training */}
-      <TrainingServices onSelectService={(svc) => handleOpenBookModal(svc)} />
+      {/* 6. Certified Trainers Roster */}
+      <CoachingTeam />
 
       {/* 7. Founder & CEO */}
       <Founder />
 
-      {/* 8. Coaching Team */}
-      <CoachingTeam />
-
-      {/* 9. Pricing Schedules */}
-      <Pricing onSelectPlan={(plan) => handleOpenBookModal(plan)} />
-
-      {/* 10. Small Group Transformation */}
-      <Transformation onBookClick={() => handleOpenBookModal('Small Group Transformation')} />
-
-
-      {/* 11. Member Testimonials */}
-      <Testimonials />
-
-      {/* 12. Pure Media Swiper (Photos & Videos) */}
+      {/* 8. Pure Media Swiper (Photos & Videos) */}
       <Gallery />
 
-      {/* 12. Location & Google Maps */}
+      {/* 9. Member Testimonials */}
+      <Testimonials />
+
+      {/* 10. Shortened About ONYX Section */}
+      <About />
+
+      {/* 11. Location & Google Maps */}
       <LocationMap />
 
-      {/* 13. Appointment & Booking Form */}
+      {/* 12. Appointment & Booking Form */}
       <AppointmentForm selectedPlanPreset={selectedPlanPreset} />
 
-      {/* 14. Footer */}
+      {/* 13. Footer */}
       <Footer onBookClick={() => handleOpenBookModal()} />
     </div>
   );
 };
 
 export default App;
+

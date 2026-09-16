@@ -30,7 +30,7 @@ export const Founder: React.FC = () => {
                     MR. KARUNESH
                   </div>
                   <div className="text-sm font-bold uppercase tracking-wider text-[#E50914]">
-                    Founder & CEO | GGFI Certified Head Coach
+                    Founder & CEO | Head Coach
                   </div>
                 </div>
               </div>
@@ -46,7 +46,7 @@ export const Founder: React.FC = () => {
                   MR. KARUNESH
                 </h2>
                 <div className="text-base font-bold text-zinc-300 uppercase tracking-wider mt-1">
-                  Founder & CEO • GGFI Certified Master Coach
+                  Founder & CEO • Head Coach
                 </div>
               </div>
 
@@ -79,7 +79,7 @@ export const Founder: React.FC = () => {
                 <div className="p-4 bg-[#050505] border border-[#1F1F1F] rounded-xl flex items-center space-x-3.5">
                   <ShieldCheck className="w-6 h-6 text-[#E50914] flex-shrink-0" />
                   <div>
-                    <div className="text-sm font-bold text-white">GGFI Certified Coach</div>
+                    <div className="text-sm font-bold text-white">Certified Head Coach</div>
                     <div className="text-xs text-zinc-400">Verified Fitness Credential</div>
                   </div>
                 </div>

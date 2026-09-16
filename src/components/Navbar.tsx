@@ -14,12 +14,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onBookClick }) => {
 
   const navLinks = [
     { name: 'Home', href: '#hero', id: 'hero' },
-    { name: 'About', href: '#about', id: 'about' },
-    { name: 'Training', href: '#training', id: 'training' },
+    { name: 'Training & Pricing', href: '#pricing', id: 'pricing' },
     { name: 'Team', href: '#team', id: 'team' },
-    { name: 'Pricing', href: '#pricing', id: 'pricing' },
-    { name: 'Transform', href: '#transform', id: 'transform' },
     { name: 'Visuals', href: '#gallery', id: 'gallery' },
+    { name: 'Testimonials', href: '#testimonials', id: 'testimonials' },
+    { name: 'About', href: '#about', id: 'about' },
     { name: 'Contact', href: '#contact', id: 'contact' },
   ];
 

@@ -87,8 +87,8 @@ export const EnquiryModal: React.FC<EnquiryModalProps> = ({ isOpen, onClose }) =
             <h3 className="text-2xl font-black uppercase text-white font-display mb-2">
               YOUR JOURNEY BEGINS
             </h3>
-            <p className="text-sm text-zinc-300 max-w-md leading-relaxed mb-6">
-              Thank you. Your enquiry has been received. The ONYX team will get in touch with you shortly.
+            <p className="text-sm text-zinc-300 max-w-md leading-relaxed mb-6 font-medium">
+              Thank you! Your enquiry has been received. The ONYX team will get in touch with you shortly.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 w-full">
               <button
