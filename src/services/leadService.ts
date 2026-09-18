@@ -1,13 +1,8 @@
 /// <reference types="vite/client" />
-import { LeadFormData } from '../types';
 
-// Webhook URL configuration (reads from .env VITE_GOOGLE_SHEETS_WEBHOOK_URL or localStorage override)
-const getWebhookUrl = (): string => {
-  return (
-    import.meta.env.VITE_GOOGLE_SHEETS_WEBHOOK_URL ||
-    (typeof window !== 'undefined' ? localStorage.getItem('onyx_sheets_webhook_url') || '' : '')
-  );
-};
+const GOOGLE_APPS_SCRIPT_WEBAPP_URL =
+  import.meta.env.VITE_GOOGLE_SHEETS_WEBHOOK_URL ||
+  'https://script.google.com/macros/s/AKfycbwRaPFArYAmgJ62EFBfkwsvf32C0es_xeE_ioLNMJrEu80duxbPiyASS1dkpbOwYMa3Gw/exec';
 
 export interface LeadSubmissionPayload {
   fullName: string;
@@ -22,76 +17,70 @@ export interface LeadSubmissionPayload {
 }
 
 export const submitLead = async (data: LeadSubmissionPayload): Promise<{ success: boolean; message: string }> => {
-  const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+  // Extract required exact fields: name, phone, email, trainingInterest, message
+  const extraDetails = [
+    data.preferredDate ? `Date: ${data.preferredDate}` : '',
+    data.preferredTime ? `Time: ${data.preferredTime}` : '',
+    data.trainingGoal ? `Goal: ${data.trainingGoal}` : '',
+    data.message ? `Notes: ${data.message}` : ''
+  ].filter(Boolean).join(' | ');
 
-  const payload = {
-    timestamp,
-    name: data.fullName,
-    phone: data.phone,
-    email: data.email,
-    trainingInterest: data.interestedIn || 'General Enquiry',
-    message: [
-      data.preferredDate ? `Date: ${data.preferredDate}` : '',
-      data.preferredTime ? `Time: ${data.preferredTime}` : '',
-      data.trainingGoal ? `Goal: ${data.trainingGoal}` : '',
-      data.message ? `Notes: ${data.message}` : ''
-    ].filter(Boolean).join(' | ') || 'No additional notes',
-    source: data.source || 'Website Form'
-  };
+  const name = data.fullName ? data.fullName.trim() : '';
+  const phone = data.phone ? data.phone.trim() : '';
+  const email = data.email ? data.email.trim() : '';
+  const trainingInterest = data.interestedIn || 'General Enquiry';
+  const message = extraDetails || (data.message ? data.message.trim() : 'No additional notes');
 
-  // 1. Save locally to localStorage backup queue
+  if (!name || !phone || !email) {
+    return {
+      success: false,
+      message: 'Please provide your Full Name, Phone Number, and Email Address.'
+    };
+  }
+
+  // Backup locally to localStorage queue
   try {
     const existing = JSON.parse(localStorage.getItem('onyx_captured_leads') || '[]');
-    existing.push(payload);
+    existing.push({
+      name,
+      phone,
+      email,
+      trainingInterest,
+      message,
+      submittedAt: new Date().toISOString()
+    });
     localStorage.setItem('onyx_captured_leads', JSON.stringify(existing));
-  } catch (err) {
-    console.warn('Local storage lead queue write error:', err);
+  } catch (e) {
+    console.warn('Local storage lead queue write error:', e);
   }
 
-  const endpoint = getWebhookUrl();
+  try {
+    // Send exact required fields via URLSearchParams HTTP POST
+    const body = new URLSearchParams();
+    body.append('name', name);
+    body.append('phone', phone);
+    body.append('email', email);
+    body.append('trainingInterest', trainingInterest);
+    body.append('message', message);
 
-  // 2. Submit to Google Apps Script Web App Endpoint if endpoint URL is configured
-  if (endpoint) {
-    try {
-      // Send as URLSearchParams form payload so Google Apps Script handles e.parameter natively
-      const formData = new URLSearchParams();
-      formData.append('timestamp', payload.timestamp);
-      formData.append('name', payload.name);
-      formData.append('phone', payload.phone);
-      formData.append('email', payload.email);
-      formData.append('trainingInterest', payload.trainingInterest);
-      formData.append('message', payload.message);
-      formData.append('source', payload.source);
+    await fetch(GOOGLE_APPS_SCRIPT_WEBAPP_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: body.toString()
+    });
 
-      // Submit via fetch with mode: 'no-cors' to bypass Google Apps Script CORS redirect headers
-      await fetch(endpoint, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: formData.toString()
-      });
-
-      return {
-        success: true,
-        message: 'Thank you! Your enquiry has been received. The ONYX team will get in touch with you shortly.'
-      };
-    } catch (error) {
-      console.error('Google Sheets submission error:', error);
-      return {
-        success: false,
-        message: 'Unable to submit enquiry directly right now. Please try again or message us on WhatsApp.'
-      };
-    }
+    return {
+      success: true,
+      message: 'Thank you! Your enquiry has been submitted. Our team will contact you shortly.'
+    };
+  } catch (error) {
+    console.error('Google Sheets POST submission failed:', error);
+    return {
+      success: false,
+      message: 'Unable to submit enquiry right now. Please check your connection or contact us on WhatsApp.'
+    };
   }
-
-  console.info(
-    'ONYX Lead Captured locally. To log directly to your Google Sheet (https://docs.google.com/spreadsheets/d/1-ssMCfgTwmEgIh44U-OHKsn7gNOQg-8Crl524nC1bBY/edit), add your Google Apps Script Web App URL to .env as VITE_GOOGLE_SHEETS_WEBHOOK_URL.'
-  );
-
-  return {
-    success: true,
-    message: 'Thank you! Your enquiry has been received. The ONYX team will get in touch with you shortly.'
-  };
 };
