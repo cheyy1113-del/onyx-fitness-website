@@ -32,47 +32,46 @@ export const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#050505] text-white selection:bg-[#E50914] selection:text-white relative">
-      {/* 1. Preloader */}
+      {/* Preloader */}
       {loading && <Preloader onComplete={() => setLoading(false)} />}
 
-      {/* 2. Navigation */}
+      {/* Navigation */}
       <Navbar onBookClick={() => handleOpenBookModal()} />
 
-      {/* 3. Hero Section */}
+      {/* 1. HOME / HERO SECTION */}
       <Hero onBookClick={() => handleOpenBookModal()} />
 
-      {/* 4. Enquiry Modal (Opened only via CTA clicks) */}
+      {/* Enquiry Modal (Opened only via manual CTA clicks) */}
       <EnquiryModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 
-      {/* 5. Combined Training & Pricing Section */}
-      <Pricing onSelectPlan={(plan) => handleOpenBookModal(plan)} />
-
-      {/* 6. Certified Trainers Roster */}
-      <CoachingTeam />
-
-      {/* 7. Founder & CEO */}
-      <Founder />
-
-      {/* 8. Pure Media Swiper (Photos & Videos) */}
-      <Gallery />
-
-      {/* 9. Member Testimonials */}
-      <Testimonials />
-
-      {/* 10. Shortened About ONYX Section */}
+      {/* 2. ABOUT SECTION */}
       <About />
 
-      {/* 11. Location & Google Maps */}
-      <LocationMap />
+      {/* 3. VISUALS / GALLERY / VIDEOS SECTION */}
+      <Gallery />
 
-      {/* 12. Appointment & Booking Form */}
-      <AppointmentForm selectedPlanPreset={selectedPlanPreset} />
+      {/* 4. TRAINING & PRICING SECTION */}
+      <Pricing onSelectPlan={(plan) => handleOpenBookModal(plan)} />
 
-      {/* 13. Footer */}
+      {/* 5. TEAM & FOUNDER SECTION */}
+      <div id="team">
+        <CoachingTeam />
+        <Founder />
+      </div>
+
+      {/* 6. TESTIMONIALS SECTION */}
+      <Testimonials />
+
+      {/* 7. CONTACT / LOCATION SECTION */}
+      <div id="contact">
+        <LocationMap />
+        <AppointmentForm selectedPlanPreset={selectedPlanPreset} />
+      </div>
+
+      {/* Footer */}
       <Footer onBookClick={() => handleOpenBookModal()} />
     </div>
   );
 };
 
 export default App;
-
