@@ -9,7 +9,7 @@ export const CoachingTeam: React.FC = () => {
     {
       id: 'karunesh',
       name: 'MR. KARUNESH',
-      role: 'Certified Trainer',
+      role: 'FOUNDER',
       imagePlaceholderUrl: '/assets/onyx_founder_karunesh.jpg',
       isFounder: true
     },

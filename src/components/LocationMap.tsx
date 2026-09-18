@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Phone, MessageSquare, Navigation, Clock, Mail, ExternalLink } from 'lucide-react';
+import { MapPin, Phone, MessageSquare, Navigation, Clock, Mail, ExternalLink, Building2 } from 'lucide-react';
 
 export const LocationMap: React.FC = () => {
   const mapSearchUrl = "https://www.google.com/maps/search/?api=1&query=Onyx+The+Professional+Fitness+Studio+SR+Nagar+Hyderabad+Telangana";
@@ -26,7 +26,33 @@ export const LocationMap: React.FC = () => {
           </p>
         </div>
 
-        {/* Grid: Details & Map */}
+        {/* Building Photograph Banner */}
+        <div className="mb-10 bg-[#0D0D0D] border border-[#1F1F1F] hover:border-[#E50914]/40 rounded-3xl overflow-hidden shadow-2xl relative group transition-colors duration-500">
+          <div className="relative w-full max-h-[500px] bg-[#121212] overflow-hidden flex items-center justify-center">
+            <img
+              src="/assets/onyx_building_location.jpg"
+              alt="ONYX The Professional Fitness Studio Building & Exterior Location"
+              className="w-full h-full object-contain sm:object-cover object-center group-hover:scale-102 transition-all duration-700"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-70" />
+            
+            <div className="absolute bottom-5 left-5 right-5 text-left">
+              <div className="inline-flex items-center space-x-2 bg-[#E50914] text-white text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded shadow font-display mb-1.5">
+                <Building2 className="w-3.5 h-3.5" />
+                <span>ONYX STUDIO BUILDING & LOCATION</span>
+              </div>
+              <h3 className="text-xl sm:text-3xl font-black uppercase text-white font-display">
+                ONYX THE PROFESSIONAL FITNESS STUDIO — S.R. NAGAR
+              </h3>
+              <p className="text-zinc-300 text-xs sm:text-sm font-medium">
+                S.R. Nagar, Hyderabad, Telangana 500038
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Grid: Contact Details & Google Map */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Left Column: Contact Card */}
