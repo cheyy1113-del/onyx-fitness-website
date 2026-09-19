@@ -99,7 +99,7 @@ export const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
                 GENERAL GYM ACCESS
               </h3>
               <p className="text-sm text-zinc-300">
-                Spacious equipment floor with premium plate-loaded machines, power racks, cardio suites, and steam bath access.
+                Spacious equipment floor with premium plate-loaded machines, power racks, and cardio suites.
               </p>
             </div>
 
@@ -109,7 +109,7 @@ export const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
                 subtitle="GENERAL ACCESS"
                 price="₹3,500"
                 period="/ Month"
-                features={['Full gym floor access', 'State-of-the-art strength machinery', 'Cardio suites & free weights', 'Steam Bath facility access', 'Locker room access']}
+                features={['Full gym floor access', 'State-of-the-art strength machinery', 'Cardio suites & free weights', 'Locker room access']}
                 onSelect={() => onSelectPlan('Gym Membership - 01 Month (₹3,500)')}
               />
 
@@ -119,7 +119,7 @@ export const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
                 price="₹8,999"
                 period="/ 3 Months"
                 popular
-                features={['Full gym floor access', 'State-of-the-art strength machinery', 'Cardio suites & free weights', 'Steam Bath facility access', 'Locker room access', 'Workout plan guidance']}
+                features={['Full gym floor access', 'State-of-the-art strength machinery', 'Cardio suites & free weights', 'Locker room access', 'Workout plan guidance']}
                 onSelect={() => onSelectPlan('Gym Membership - 03 Months (₹8,999)')}
               />
 
@@ -128,7 +128,7 @@ export const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
                 subtitle="GENERAL ACCESS"
                 price="₹14,999"
                 period="/ 6 Months"
-                features={['Full gym floor access', 'State-of-the-art strength machinery', 'Cardio suites & free weights', 'Steam Bath facility access', 'Locker room access', 'Periodic body composition audits']}
+                features={['Full gym floor access', 'State-of-the-art strength machinery', 'Cardio suites & free weights', 'Locker room access', 'Periodic body composition audits']}
                 onSelect={() => onSelectPlan('Gym Membership - 06 Months (₹14,999)')}
               />
 
@@ -137,7 +137,7 @@ export const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
                 subtitle="GENERAL ACCESS"
                 price="₹23,999"
                 period="/ Year"
-                features={['Full gym floor access', 'State-of-the-art strength machinery', 'Cardio suites & free weights', 'Steam Bath facility access', 'Locker room access', 'Full year uninterrupted consistency']}
+                features={['Full gym floor access', 'State-of-the-art strength machinery', 'Cardio suites & free weights', 'Locker room access', 'Full year uninterrupted consistency']}
                 onSelect={() => onSelectPlan('Gym Membership - 12 Months (₹23,999)')}
               />
             </div>

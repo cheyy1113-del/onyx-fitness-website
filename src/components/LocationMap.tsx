@@ -106,7 +106,6 @@ export const LocationMap: React.FC = () => {
                     <div className="text-xs font-bold text-white uppercase">Studio Timings</div>
                     <div className="text-xs text-zinc-300">Monday – Saturday: 05:30 AM – 10:00 PM</div>
                     <div className="text-xs text-zinc-300">Sunday: 7:00 AM – 12:00 PM</div>
-                    <div className="text-xs font-bold text-[#E50914] mt-1">• Steam Bath Facility Available</div>
                   </div>
                 </div>
               </div>

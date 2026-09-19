@@ -15,7 +15,7 @@ export const TrainingServices: React.FC<TrainingServicesProps> = ({ onSelectServ
       title: 'GYM MEMBERSHIP',
       subtitle: 'Professional Gym Access',
       desc: 'Spacious, hygienic environment equipped with premium plate-loaded machinery, heavy free weights, power racks, and cardio suites.',
-      highlights: ['Premium equipment floor', 'Steam Bath facility access', 'Locker & shower facilities', 'General trainer floor guidance'],
+      highlights: ['Premium equipment floor', 'Locker & shower facilities', 'General trainer floor guidance'],
       cta: 'EXPLORE MEMBERSHIP',
       icon: Dumbbell,
       image: '/assets/onyx_cardio_floor.jpg'
