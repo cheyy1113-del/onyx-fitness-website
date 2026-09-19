@@ -5,7 +5,6 @@ import { Hero } from './components/Hero';
 import { EnquiryModal } from './components/EnquiryModal';
 import { About } from './components/About';
 import { Founder } from './components/Founder';
-import { CoachingTeam } from './components/CoachingTeam';
 import { Pricing } from './components/Pricing';
 import { Testimonials } from './components/Testimonials';
 import { Gallery } from './components/Gallery';
@@ -53,11 +52,8 @@ export const App: React.FC = () => {
       {/* 4. TRAINING & PRICING SECTION */}
       <Pricing onSelectPlan={(plan) => handleOpenBookModal(plan)} />
 
-      {/* 5. TEAM & FOUNDER SECTION */}
-      <div id="team">
-        <CoachingTeam />
-        <Founder />
-      </div>
+      {/* 5. FOUNDER & CEO SECTION */}
+      <Founder />
 
       {/* 6. TESTIMONIALS SECTION */}
       <Testimonials />

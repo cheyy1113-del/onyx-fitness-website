@@ -8,7 +8,7 @@ export const Gallery: React.FC = () => {
   const [activeVideo, setActiveVideo] = useState<{ url: string } | null>(null);
 
   const galleryItems: GalleryItem[] = [
-    // Video Reels (4 Real Studio Reels)
+    // 4 Real Studio Video Reels
     { id: 'v1', title: '', category: 'video', imageUrl: '/assets/onyx_photo_01.jpg', videoUrl: '/assets/videos/onyx_video_01.mp4', isVideo: true, caption: '' },
     { id: 'v2', title: '', category: 'video', imageUrl: '/assets/onyx_photo_02.jpg', videoUrl: '/assets/videos/onyx_video_02.mp4', isVideo: true, caption: '' },
     { id: 'v3', title: '', category: 'video', imageUrl: '/assets/onyx_photo_03.jpg', videoUrl: '/assets/videos/onyx_video_03.mp4', isVideo: true, caption: '' },
@@ -104,27 +104,20 @@ export const Gallery: React.FC = () => {
             >
               {item.isVideo && item.videoUrl ? (
                 <>
-                  <img
-                    src={item.imageUrl}
-                    alt="Media Thumbnail"
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+                  {/* Inline Autoplaying Video for Desktop & Mobile */}
                   <video
                     src={item.videoUrl}
                     poster={item.imageUrl}
+                    autoPlay
                     muted
                     loop
                     playsInline
-                    preload="auto"
-                    className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    onMouseOver={(e) => (e.target as HTMLVideoElement).play().catch(() => {})}
-                    onMouseOut={(e) => (e.target as HTMLVideoElement).pause()}
+                    preload="metadata"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-all flex items-center justify-center pointer-events-none">
-                    <div className="w-16 h-16 rounded-full bg-[#E50914] text-white flex items-center justify-center shadow-red-glow group-hover:scale-110 transition-transform">
-                      <Play className="w-8 h-8 fill-current ml-1" />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/5 transition-all flex items-center justify-center pointer-events-none">
+                    <div className="w-14 h-14 rounded-full bg-[#E50914]/90 text-white flex items-center justify-center shadow-red-glow group-hover:scale-110 transition-transform">
+                      <Play className="w-7 h-7 fill-current ml-1" />
                     </div>
                   </div>
                 </>
@@ -171,6 +164,7 @@ export const Gallery: React.FC = () => {
                   src={activeVideo.url}
                   controls
                   autoPlay
+                  playsInline
                   className="w-full h-full object-contain"
                 />
               </div>

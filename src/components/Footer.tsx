@@ -44,7 +44,7 @@ export const Footer: React.FC<FooterProps> = ({ onBookClick }) => {
               <li><a href="#about" className="hover:text-[#E50914] transition-colors">About ONYX</a></li>
               <li><a href="#gallery" className="hover:text-[#E50914] transition-colors">Visual Gallery</a></li>
               <li><a href="#pricing" className="hover:text-[#E50914] transition-colors">Training & Pricing</a></li>
-              <li><a href="#team" className="hover:text-[#E50914] transition-colors">Certified Trainers</a></li>
+              <li><a href="#founder" className="hover:text-[#E50914] transition-colors">Founder & CEO</a></li>
               <li><a href="#testimonials" className="hover:text-[#E50914] transition-colors">Member Testimonials</a></li>
               <li><a href="#contact" className="hover:text-[#E50914] transition-colors">Contact & Location</a></li>
             </ul>

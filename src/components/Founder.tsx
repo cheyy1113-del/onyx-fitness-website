@@ -3,7 +3,7 @@ import { Award, Calendar, CheckCircle, ShieldCheck } from 'lucide-react';
 
 export const Founder: React.FC = () => {
   return (
-    <section className="py-14 relative overflow-hidden bg-[#050505]">
+    <section id="founder" className="py-14 relative overflow-hidden bg-[#050505] border-t border-[#1F1F1F]">
       {/* Background Radial Glow */}
       <div className="ambient-glow-right" />
 
@@ -20,7 +20,7 @@ export const Founder: React.FC = () => {
               <div className="relative w-full max-w-md h-[440px] rounded-2xl overflow-hidden bg-[#121212] border-2 border-[#1F1F1F] shadow-2xl group">
                 <img
                   src="/assets/onyx_founder_karunesh.jpg"
-                  alt="Mr. Karunesh - Founder & CEO"
+                  alt="Mr. Karunesh - Founder & CEO of ONYX Gym Hyderabad"
                   className="w-full h-full object-cover object-top group-hover:scale-105 transition-all duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0D0D0D] via-transparent to-transparent opacity-80" />
@@ -30,7 +30,7 @@ export const Founder: React.FC = () => {
                     MR. KARUNESH
                   </div>
                   <div className="text-sm font-bold uppercase tracking-wider text-[#E50914]">
-                    Founder & CEO | Head Coach
+                    Founder & CEO of ONYX Gym Hyderabad
                   </div>
                 </div>
               </div>
@@ -46,7 +46,7 @@ export const Founder: React.FC = () => {
                   MR. KARUNESH
                 </h2>
                 <div className="text-base font-bold text-zinc-300 uppercase tracking-wider mt-1">
-                  Founder & CEO • Head Coach
+                  Founder & CEO of ONYX Gym Hyderabad
                 </div>
               </div>
 
@@ -63,8 +63,8 @@ export const Founder: React.FC = () => {
                 <div className="p-4 bg-[#050505] border border-[#1F1F1F] rounded-xl flex items-center space-x-3.5">
                   <Calendar className="w-6 h-6 text-[#E50914] flex-shrink-0" />
                   <div>
-                    <div className="text-sm font-bold text-white">Trainer Since 2012</div>
-                    <div className="text-xs text-zinc-400">14+ Years Coaching Legacy</div>
+                    <div className="text-sm font-bold text-white">Fitness Leadership</div>
+                    <div className="text-xs text-zinc-400">14+ Years Legacy</div>
                   </div>
                 </div>
 
@@ -79,8 +79,8 @@ export const Founder: React.FC = () => {
                 <div className="p-4 bg-[#050505] border border-[#1F1F1F] rounded-xl flex items-center space-x-3.5">
                   <ShieldCheck className="w-6 h-6 text-[#E50914] flex-shrink-0" />
                   <div>
-                    <div className="text-sm font-bold text-white">Certified Head Coach</div>
-                    <div className="text-xs text-zinc-400">Verified Fitness Credential</div>
+                    <div className="text-sm font-bold text-white">Founder & CEO</div>
+                    <div className="text-xs text-zinc-400">ONYX Gym Hyderabad</div>
                   </div>
                 </div>
 

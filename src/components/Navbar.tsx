@@ -17,7 +17,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onBookClick }) => {
     { name: 'About', href: '#about', id: 'about' },
     { name: 'Visuals', href: '#gallery', id: 'gallery' },
     { name: 'Training & Pricing', href: '#pricing', id: 'pricing' },
-    { name: 'Team', href: '#team', id: 'team' },
+    { name: 'Founder', href: '#founder', id: 'founder' },
     { name: 'Testimonials', href: '#testimonials', id: 'testimonials' },
     { name: 'Contact', href: '#contact', id: 'contact' },
   ];
