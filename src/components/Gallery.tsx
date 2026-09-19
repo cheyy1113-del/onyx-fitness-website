@@ -9,10 +9,10 @@ export const Gallery: React.FC = () => {
 
   const galleryItems: GalleryItem[] = [
     // 4 Real Studio Video Reels
-    { id: 'v1', title: '', category: 'video', imageUrl: '/assets/onyx_photo_01.jpg', videoUrl: '/assets/videos/onyx_video_01.mp4', isVideo: true, caption: '' },
-    { id: 'v2', title: '', category: 'video', imageUrl: '/assets/onyx_photo_02.jpg', videoUrl: '/assets/videos/onyx_video_02.mp4', isVideo: true, caption: '' },
-    { id: 'v3', title: '', category: 'video', imageUrl: '/assets/onyx_photo_03.jpg', videoUrl: '/assets/videos/onyx_video_03.mp4', isVideo: true, caption: '' },
-    { id: 'v4', title: '', category: 'video', imageUrl: '/assets/onyx_photo_04.jpg', videoUrl: '/assets/videos/onyx_video_04.mp4', isVideo: true, caption: '' },
+    { id: 'v1', title: '', category: 'video', imageUrl: '/assets/onyx_photo_01.jpg', videoUrl: '/videos/onyx_video_01.mp4', isVideo: true, caption: '' },
+    { id: 'v2', title: '', category: 'video', imageUrl: '/assets/onyx_photo_02.jpg', videoUrl: '/videos/onyx_video_02.mp4', isVideo: true, caption: '' },
+    { id: 'v3', title: '', category: 'video', imageUrl: '/assets/onyx_photo_03.jpg', videoUrl: '/videos/onyx_video_03.mp4', isVideo: true, caption: '' },
+    { id: 'v4', title: '', category: 'video', imageUrl: '/assets/onyx_photo_04.jpg', videoUrl: '/videos/onyx_video_04.mp4', isVideo: true, caption: '' },
 
     // Pure Client Studio Photos (16 Photos)
     { id: 'p1', title: '', category: 'gym', imageUrl: '/assets/onyx_photo_01.jpg', caption: '' },
